@@ -1,0 +1,33 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">
+    My Applications
+  </h2>
+
+  <div
+    class="card mb-3"
+    *ngFor="let app of applications">
+
+    <div class="card-body">
+
+      <h5>
+        Job ID: {{ app.jobId }}
+      </h5>
+
+      <p>
+        Status:
+        <strong>
+          {{ app.status }}
+        </strong>
+      </p>
+
+      <p>
+        Applied On:
+        {{ app.appliedAt | date:'medium' }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

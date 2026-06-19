@@ -1,0 +1,60 @@
+<div class="container mt-4">
+
+  <h2>Applicants</h2>
+
+  <div
+    class="card mb-3"
+    *ngFor="let app of applications">
+
+    <div class="card-body">
+
+      <h5>
+        {{ app.candidateName }}
+      </h5>
+
+      <p>
+        {{ app.candidateEmail }}
+      </p>
+
+      <p>
+        Status:
+        <strong>
+          {{ app.status }}
+        </strong>
+      </p>
+
+      <button
+        class="btn btn-primary me-2"
+        (click)="updateStatus(
+          app.applicationId,
+          'Interview')">
+
+        Interview
+
+      </button>
+
+      <button
+        class="btn btn-success me-2"
+        (click)="updateStatus(
+          app.applicationId,
+          'Selected')">
+
+        Select
+
+      </button>
+
+      <button
+        class="btn btn-danger"
+        (click)="updateStatus(
+          app.applicationId,
+          'Rejected')">
+
+        Reject
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,92 @@
+<div class="container mt-4">
+
+  <div class="card">
+
+    <div class="card-header">
+      <h3>Candidate Profile</h3>
+    </div>
+
+    <div class="card-body">
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Skills
+        </label>
+
+        <textarea
+          class="form-control"
+          rows="3"
+          [(ngModel)]="skills">
+        </textarea>
+
+      </div>
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Experience
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="experience">
+
+      </div>
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Education
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="education">
+
+      </div>
+
+      <div class="mb-3">
+
+        <label class="form-label">
+          Resume (PDF)
+        </label>
+
+        <input
+          type="file"
+          class="form-control"
+          accept=".pdf"
+          (change)="onFileSelected($event)">
+
+      </div>
+
+      <div
+        *ngIf="resumeUrl"
+        class="mb-3">
+
+        <a
+          [attr.href]="resumeLink"
+          target="_blank"
+          class="btn btn-outline-primary">
+
+          View Resume
+
+        </a>
+
+      </div>
+
+      <button
+        class="btn btn-success"
+        (click)="uploadAndSaveProfile()">
+
+        Save Profile
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

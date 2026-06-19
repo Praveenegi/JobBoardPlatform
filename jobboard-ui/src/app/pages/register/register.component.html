@@ -1,0 +1,83 @@
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-5">
+
+      <div class="card">
+
+        <div class="card-header">
+          <h3>Register</h3>
+        </div>
+
+        <div class="card-body">
+
+          <div class="mb-3">
+            <label>First Name</label>
+            <input class="form-control"
+                   [(ngModel)]="firstName">
+          </div>
+
+          <div class="mb-3">
+            <label>Last Name</label>
+            <input class="form-control"
+                   [(ngModel)]="lastName">
+          </div>
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email"
+                   class="form-control"
+                   [(ngModel)]="email">
+          </div>
+
+          <div class="mb-3">
+            <label>Password</label>
+            <input type="password"
+                   class="form-control"
+                   [(ngModel)]="password">
+          </div>
+
+          <div class="mb-3">
+            <label>Role</label>
+
+            <select class="form-control"
+                    [(ngModel)]="role">
+
+              <option value="Candidate">
+                Candidate
+              </option>
+
+              <option value="Recruiter">
+                Recruiter
+              </option>
+
+            </select>
+
+          </div>
+
+          <button
+            class="btn btn-success w-100"
+            (click)="register()">
+
+            Register
+
+          </button>
+
+          <div class="text-center mt-3">
+
+            <a routerLink="/login">
+              Already have an account?
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

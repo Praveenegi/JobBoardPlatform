@@ -1,0 +1,132 @@
+<div class="container mt-4">
+
+  <!-- Dashboard Stats -->
+
+  <div class="row mb-4">
+
+    <div class="col-md-3">
+
+      <div class="card text-center">
+
+        <div class="card-body">
+
+          <h2>
+            {{ stats?.totalJobs }}
+          </h2>
+
+          <p>Total Jobs</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+      <div class="card text-center">
+
+        <div class="card-body">
+
+          <h2>
+            {{ stats?.totalApplications }}
+          </h2>
+
+          <p>Applications</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+      <div class="card text-center">
+
+        <div class="card-body">
+
+          <h2>
+            {{ stats?.interviews }}
+          </h2>
+
+          <p>Interviews</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+      <div class="card text-center">
+
+        <div class="card-body">
+
+          <h2>
+            {{ stats?.selected }}
+          </h2>
+
+          <p>Selected</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Create Job -->
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <h3>Create New Job</h3>
+
+    </div>
+
+    <div class="card-body">
+
+      <input
+        class="form-control mb-2"
+        placeholder="Job Title"
+        [(ngModel)]="title">
+
+      <textarea
+        class="form-control mb-2"
+        placeholder="Description"
+        [(ngModel)]="description">
+      </textarea>
+
+      <input
+        class="form-control mb-2"
+        placeholder="Location"
+        [(ngModel)]="location">
+
+      <input
+        type="number"
+        class="form-control mb-2"
+        placeholder="Salary"
+        [(ngModel)]="salary">
+
+      <input
+        class="form-control mb-3"
+        placeholder="Employment Type"
+        [(ngModel)]="employmentType">
+
+      <button
+        class="btn btn-success"
+        (click)="createJob()">
+
+        Create Job
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
