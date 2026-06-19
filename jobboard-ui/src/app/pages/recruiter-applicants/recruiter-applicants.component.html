@@ -1,71 +1,107 @@
-<div class="container mt-4 card shadow-sm border-0">
+<div class="container mt-4">
 
-  <h2>Applicants</h2>
+  <div class="mb-4">
+
+    <h2 class="fw-bold">
+      Applicants
+    </h2>
+
+    <p class="text-muted">
+      Review candidates and manage hiring decisions
+    </p>
+
+  </div>
 
   <div
-    class="card mb-3"
+    class="card shadow-sm border-0 mb-3"
     *ngFor="let app of applications">
 
     <div class="card-body">
 
-      <h5>
-        {{ app.candidateName }}
-      </h5>
+      <div class="d-flex justify-content-between align-items-start">
 
-      <p>
-        {{ app.candidateEmail }}
-      </p>
+        <div>
 
-      <p>
-        Status:
-        <strong>
+          <h5 class="fw-bold mb-1">
+            <i class="bi bi-person-fill me-2"></i>
+            {{ app.candidateName }}
+          </h5>
+
+          <p class="text-muted mb-2">
+            <i class="bi bi-envelope-fill me-2"></i>
+            {{ app.candidateEmail }}
+          </p>
+
+        </div>
+
+        <span
+          class="badge rounded-pill"
+          [ngClass]="{
+            'bg-secondary': app.status === 'Applied',
+            'bg-primary': app.status === 'Interview',
+            'bg-success': app.status === 'Selected',
+            'bg-danger': app.status === 'Rejected'
+          }">
+
           {{ app.status }}
-        </strong>
-      </p>
 
-      <button
-        class="btn btn-primary me-2"
-        (click)="updateStatus(
-          app.applicationId,
-          'Interview')">
+        </span>
 
-        Interview
+      </div>
 
-      </button>
+      <hr>
 
-      <button
-        class="btn btn-success me-2"
-        (click)="updateStatus(
-          app.applicationId,
-          'Selected')">
+      <div class="mb-3">
 
-        Select
+        <a
+          *ngIf="app.resumeUrl"
+          [href]="'https://localhost:7229' + app.resumeUrl"
+          target="_blank"
+          class="btn btn-outline-primary me-2">
 
-      </button>
+          <i class="bi bi-file-earmark-pdf-fill me-1"></i>
+          View Resume
 
-      <button
-        class="btn btn-danger"
-        (click)="updateStatus(
-          app.applicationId,
-          'Rejected')">
+        </a>
 
-        Reject
+      </div>
 
-      </button>
+      <div class="d-flex flex-wrap gap-2">
 
-      <div class="mt-2">
+        <button
+          class="btn btn-info text-white"
+          (click)="updateStatus(
+            app.applicationId,
+            'Interview')">
 
-      <a
-        *ngIf="app.resumeUrl"
-        [href]="'https://localhost:7229' + app.resumeUrl"
-        target="_blank"
-        class="btn btn-primary me-2">
+          <i class="bi bi-calendar-check-fill me-1"></i>
+          Interview
 
-        View Resume
+        </button>
 
-      </a>
+        <button
+          class="btn btn-success"
+          (click)="updateStatus(
+            app.applicationId,
+            'Selected')">
 
-</div>
+          <i class="bi bi-check-circle-fill me-1"></i>
+          Select
+
+        </button>
+
+        <button
+          class="btn btn-danger"
+          (click)="updateStatus(
+            app.applicationId,
+            'Rejected')">
+
+          <i class="bi bi-x-circle-fill me-1"></i>
+          Reject
+
+        </button>
+
+      </div>
 
     </div>
 

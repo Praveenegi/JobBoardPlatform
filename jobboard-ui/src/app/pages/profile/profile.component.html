@@ -1,57 +1,101 @@
 <div class="container mt-4">
 
-  <div class="card">
+  <div class="card shadow border-0">
 
-    <div class="card-header">
-      <h3>Candidate Profile</h3>
-    </div>
+    <div class="card-body p-4">
 
-    <div class="card-body">
+      <!-- Header -->
 
-      <div class="mb-3">
+      <div class="text-center mb-4">
 
-        <label class="form-label">
+        <i
+          class="bi bi-person-circle text-primary"
+          style="font-size: 4rem;">
+        </i>
+
+        <h2 class="fw-bold mt-3">
+          Candidate Profile
+        </h2>
+
+        <p class="text-muted">
+          Complete your profile to improve your job opportunities
+        </p>
+
+      </div>
+
+      <hr>
+
+      <!-- Skills -->
+
+      <div class="mb-4">
+
+        <label class="form-label fw-semibold">
+
+          <i class="bi bi-tools me-2"></i>
+
           Skills
+
         </label>
 
         <textarea
           class="form-control"
-          rows="3"
+          rows="4"
+          placeholder="Example: Angular, ASP.NET Core, SQL Server, Docker"
           [(ngModel)]="skills">
         </textarea>
 
       </div>
 
-      <div class="mb-3">
+      <!-- Experience -->
 
-        <label class="form-label">
+      <div class="mb-4">
+
+        <label class="form-label fw-semibold">
+
+          <i class="bi bi-briefcase-fill me-2"></i>
+
           Experience
+
         </label>
 
         <input
           type="text"
           class="form-control"
+          placeholder="Example: 2 Years"
           [(ngModel)]="experience">
 
       </div>
 
-      <div class="mb-3">
+      <!-- Education -->
 
-        <label class="form-label">
+      <div class="mb-4">
+
+        <label class="form-label fw-semibold">
+
+          <i class="bi bi-mortarboard-fill me-2"></i>
+
           Education
+
         </label>
 
         <input
           type="text"
           class="form-control"
+          placeholder="Example: MCA - Graphic Era University"
           [(ngModel)]="education">
 
       </div>
 
-      <div class="mb-3">
+      <!-- Resume Upload -->
 
-        <label class="form-label">
+      <div class="mb-4">
+
+        <label class="form-label fw-semibold">
+
+          <i class="bi bi-file-earmark-pdf-fill me-2"></i>
+
           Resume (PDF)
+
         </label>
 
         <input
@@ -62,14 +106,18 @@
 
       </div>
 
+      <!-- Resume Actions -->
+
       <div
         *ngIf="resumeUrl"
-        class="mb-3">
+        class="mb-4">
 
         <a
           [attr.href]="resumeLink"
           target="_blank"
           class="btn btn-outline-primary">
+
+          <i class="bi bi-eye-fill me-2"></i>
 
           View Resume
 
@@ -77,9 +125,13 @@
 
       </div>
 
+      <!-- Save Button -->
+
       <button
-        class="btn btn-success"
+        class="btn btn-success btn-lg"
         (click)="uploadAndSaveProfile()">
+
+        <i class="bi bi-check-circle-fill me-2"></i>
 
         Save Profile
 

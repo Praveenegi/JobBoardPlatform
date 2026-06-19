@@ -7,8 +7,17 @@ body {
 
 .card {
   border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
 }
 
 .btn {
   border-radius: 8px;
+}
+
+.table {
+  vertical-align: middle;
 }

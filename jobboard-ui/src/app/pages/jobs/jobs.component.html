@@ -1,12 +1,22 @@
-<div class="container mt-4 card shadow-sm border-0">
+<div class="container mt-4">
 
-  <h2 class="mb-4">
-    Available Jobs
-  </h2>
+  <!-- Header -->
+
+  <div class="mb-4">
+
+    <h2 class="fw-bold">
+      Available Jobs
+    </h2>
+
+    <p class="text-muted">
+      Discover opportunities that match your skills
+    </p>
+
+  </div>
 
   <!-- Filters -->
 
-  <div class="row mb-4">
+  <div class="row g-3 mb-4">
 
     <div class="col-md-4">
 
@@ -35,10 +45,21 @@
         [(ngModel)]="selectedEmploymentType"
         (change)="filterJobs()">
 
-        <option value="">All Types</option>
-        <option value="Full Time">Full Time</option>
-        <option value="Part Time">Part Time</option>
-        <option value="Remote">Remote</option>
+        <option value="">
+          All Types
+        </option>
+
+        <option value="Full Time">
+          Full Time
+        </option>
+
+        <option value="Part Time">
+          Part Time
+        </option>
+
+        <option value="Remote">
+          Remote
+        </option>
 
       </select>
 
@@ -46,7 +67,7 @@
 
   </div>
 
-  <!-- Job Cards -->
+  <!-- Jobs Grid -->
 
   <div class="row">
 
@@ -54,36 +75,61 @@
       class="col-md-4 mb-4"
       *ngFor="let job of jobs">
 
-      <div class="card h-100">
+      <div class="card shadow-sm border-0 h-100">
 
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
 
-          <h4>{{ job.title }}</h4>
+          <h4 class="fw-bold mb-3">
 
-          <p>{{ job.description }}</p>
+            <i class="bi bi-briefcase-fill text-primary me-2"></i>
 
-          <p>
-            <strong>Location:</strong>
-            {{ job.location }}
+            {{ job.title }}
+
+          </h4>
+
+          <p class="text-muted">
+
+            {{ job.description }}
+
           </p>
 
-          <p>
-            <strong>Salary:</strong>
-            ₹{{ job.salary }}
-          </p>
+          <div class="mt-auto">
 
-          <p>
-            <strong>Type:</strong>
-            {{ job.employmentType }}
-          </p>
+            <p class="mb-2">
 
-          <button
-            class="btn btn-primary"
-            (click)="apply(job.id)">
+              <i class="bi bi-geo-alt-fill text-danger me-2"></i>
 
-            Apply
+              {{ job.location }}
 
-          </button>
+            </p>
+
+            <p class="mb-2">
+
+              <i class="bi bi-cash-stack text-success me-2"></i>
+
+              ₹{{ job.salary }}
+
+            </p>
+
+            <p class="mb-3">
+
+              <i class="bi bi-clock-fill text-info me-2"></i>
+
+              {{ job.employmentType }}
+
+            </p>
+
+            <button
+              class="btn btn-primary w-100"
+              (click)="apply(job.id)">
+
+              <i class="bi bi-send-fill me-2"></i>
+
+              Apply Now
+
+            </button>
+
+          </div>
 
         </div>
 

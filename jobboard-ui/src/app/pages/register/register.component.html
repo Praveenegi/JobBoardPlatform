@@ -2,47 +2,112 @@
 
   <div class="row justify-content-center">
 
-    <div class="col-md-5">
+    <div class="col-md-6 col-lg-5">
 
-      <div class="card">
+      <div class="card shadow border-0">
 
-        <div class="card-header">
-          <h3>Register</h3>
-        </div>
+        <div class="card-body p-4">
 
-        <div class="card-body">
+          <div class="text-center mb-4">
 
-          <div class="mb-3">
-            <label>First Name</label>
-            <input class="form-control"
-                   [(ngModel)]="firstName">
+            <i
+              class="bi bi-person-plus-fill text-success"
+              style="font-size: 3rem;">
+            </i>
+
+            <h2 class="fw-bold mt-3">
+              Create Account
+            </h2>
+
+            <p class="text-muted">
+              Join JobBoard and start your career journey
+            </p>
+
           </div>
 
           <div class="mb-3">
-            <label>Last Name</label>
-            <input class="form-control"
-                   [(ngModel)]="lastName">
+
+            <label class="form-label">
+
+              <i class="bi bi-person-fill me-2"></i>
+
+              First Name
+
+            </label>
+
+            <input
+              class="form-control"
+              placeholder="Enter first name"
+              [(ngModel)]="firstName">
+
           </div>
 
           <div class="mb-3">
-            <label>Email</label>
-            <input type="email"
-                   class="form-control"
-                   [(ngModel)]="email">
+
+            <label class="form-label">
+
+              <i class="bi bi-person-fill me-2"></i>
+
+              Last Name
+
+            </label>
+
+            <input
+              class="form-control"
+              placeholder="Enter last name"
+              [(ngModel)]="lastName">
+
           </div>
 
           <div class="mb-3">
-            <label>Password</label>
-            <input type="password"
-                   class="form-control"
-                   [(ngModel)]="password">
+
+            <label class="form-label">
+
+              <i class="bi bi-envelope-fill me-2"></i>
+
+              Email
+
+            </label>
+
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Enter your email"
+              [(ngModel)]="email">
+
           </div>
 
           <div class="mb-3">
-            <label>Role</label>
 
-            <select class="form-control"
-                    [(ngModel)]="role">
+            <label class="form-label">
+
+              <i class="bi bi-lock-fill me-2"></i>
+
+              Password
+
+            </label>
+
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Create a password"
+              [(ngModel)]="password">
+
+          </div>
+
+          <div class="mb-4">
+
+            <label class="form-label">
+
+              <i class="bi bi-person-badge-fill me-2"></i>
+
+              Role
+
+            </label>
+
+            <select
+              class="form-control"
+              [(ngModel)]="role">
 
               <option value="Candidate">
                 Candidate
@@ -57,17 +122,27 @@
           </div>
 
           <button
-            class="btn btn-success w-100"
+            class="btn btn-success w-100 mb-3"
             (click)="register()">
 
-            Register
+            <i class="bi bi-person-plus-fill me-2"></i>
+
+            Create Account
 
           </button>
 
-          <div class="text-center mt-3">
+          <div class="text-center">
 
-            <a routerLink="/login">
+            <span class="text-muted">
               Already have an account?
+            </span>
+
+            <a
+              routerLink="/login"
+              class="ms-2 text-decoration-none fw-semibold">
+
+              Login
+
             </a>
 
           </div>

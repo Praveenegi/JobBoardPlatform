@@ -2,44 +2,73 @@
 
   <div class="container">
 
-    <a class="navbar-brand">
-      Job Board
+    <a
+      class="navbar-brand fw-bold">
+
+      <i class="bi bi-briefcase-fill me-2"></i>
+
+      JobBoard
+
     </a>
 
-    <div class="navbar-nav">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
 
-      <a
-        class="nav-link"
-        routerLink="/jobs">
+      <span class="navbar-toggler-icon"></span>
 
-        Jobs
+    </button>
 
-      </a>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarNav">
 
-      <a
-        class="nav-link"
-        routerLink="/my-applications">
+      <div class="navbar-nav ms-auto">
 
-        My Applications
+        <a
+          class="nav-link"
+          routerLink="/jobs">
 
-      </a>
+          <i class="bi bi-search me-1"></i>
 
-      <a
-        class="nav-link"
-        routerLink="/profile">
+          Jobs
 
-        Profile
+        </a>
 
-      </a>
+        <a
+          class="nav-link"
+          routerLink="/my-applications">
 
-      <a
-        class="nav-link"
-        style="cursor:pointer"
-        (click)="logout()">
+          <i class="bi bi-file-earmark-text me-1"></i>
 
-        Logout
+          My Applications
 
-      </a>
+        </a>
+
+        <a
+          class="nav-link"
+          routerLink="/profile">
+
+          <i class="bi bi-person-circle me-1"></i>
+
+          Profile
+
+        </a>
+
+        <a
+          class="nav-link text-danger"
+          style="cursor:pointer"
+          (click)="logout()">
+
+          <i class="bi bi-box-arrow-right me-1"></i>
+
+          Logout
+
+        </a>
+
+      </div>
 
     </div>
 

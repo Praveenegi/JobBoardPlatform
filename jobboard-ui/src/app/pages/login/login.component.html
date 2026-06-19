@@ -2,47 +2,90 @@
 
   <div class="row justify-content-center">
 
-    <div class="col-md-4">
+    <div class="col-md-5 col-lg-4">
 
-      <div class="card">
+      <div class="card shadow border-0">
 
-        <div class="card-header">
-          <h3>Login</h3>
-        </div>
+        <div class="card-body p-4">
 
-        <div class="card-body">
+          <div class="text-center mb-4">
+
+            <i
+              class="bi bi-briefcase-fill text-primary"
+              style="font-size: 3rem;">
+            </i>
+
+            <h2 class="fw-bold mt-3">
+              Welcome Back
+            </h2>
+
+            <p class="text-muted">
+              Sign in to your JobBoard account
+            </p>
+
+          </div>
 
           <div class="mb-3">
-            <label>Email</label>
+
+            <label class="form-label">
+
+              <i class="bi bi-envelope-fill me-2"></i>
+
+              Email
+
+            </label>
 
             <input
               type="email"
               class="form-control"
+              placeholder="Enter your email"
               [(ngModel)]="email">
+
           </div>
 
           <div class="mb-3">
-            <label>Password</label>
+
+            <label class="form-label">
+
+              <i class="bi bi-lock-fill me-2"></i>
+
+              Password
+
+            </label>
 
             <input
               type="password"
               class="form-control"
+              placeholder="Enter your password"
               [(ngModel)]="password">
-          </div>
 
-          <div class="text-center mt-3">
-            <a routerLink="/register">
-            Create Account
-            </a>
           </div>
 
           <button
-            class="btn btn-primary w-100"
+            class="btn btn-primary w-100 mb-3"
             (click)="login()">
+
+            <i class="bi bi-box-arrow-in-right me-2"></i>
 
             Login
 
           </button>
+
+          <div class="text-center">
+
+            <span class="text-muted">
+              Don't have an account?
+            </span>
+
+            <a
+              routerLink="/register"
+              class="ms-2 text-decoration-none fw-semibold">
+
+              Create Account
+
+            </a>
+
+          </div>
 
         </div>
 
