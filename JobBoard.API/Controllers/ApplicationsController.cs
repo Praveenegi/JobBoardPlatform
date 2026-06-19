@@ -91,10 +91,35 @@ public class ApplicationsController : ControllerBase
     }
 
     [HttpGet("candidate/{candidateId}")]
-    public async Task<IActionResult> GetApplicationsForCandidate(int candidateId)
+    public async Task<IActionResult> GetApplicationsForCandidate(
+    int candidateId)
     {
         var applications = await _context.Applications
-            .Where(a => a.CandidateId == candidateId)
+            .Include(a => a.Job)
+            .Where(a =>
+                a.CandidateId == candidateId)
+            .Select(a => new
+            {
+                ApplicationId = a.Id,
+
+                JobTitle =
+                    a.Job.Title,
+
+                Location =
+                    a.Job.Location,
+
+                EmploymentType =
+                    a.Job.EmploymentType,
+
+                Salary =
+                    a.Job.Salary,
+
+                Status =
+                    a.Status,
+
+                AppliedAt =
+                    a.AppliedAt
+            })
             .ToListAsync();
 
         return Ok(applications);

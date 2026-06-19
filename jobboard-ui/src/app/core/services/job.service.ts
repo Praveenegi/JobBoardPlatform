@@ -36,5 +36,11 @@ export class JobService {
     job
   );
 }
+
+deleteJob(id: number) {
+  return this.http.delete(
+    `${environment.apiUrl}/Jobs/${id}`
+  );
+}
   
 }

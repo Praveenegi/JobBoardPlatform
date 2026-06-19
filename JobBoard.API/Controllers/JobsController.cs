@@ -82,4 +82,24 @@ public class JobsController : ControllerBase
         return Ok(job);
     }
 
+    //Delete job
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteJob(int id)
+    {
+        var job = await _context.Jobs
+            .FindAsync(id);
+
+        if (job == null)
+            return NotFound();
+
+        _context.Jobs.Remove(job);
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new
+        {
+            message = "Job deleted successfully"
+        });
+    }
+
 }

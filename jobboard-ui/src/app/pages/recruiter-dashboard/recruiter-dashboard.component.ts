@@ -160,4 +160,37 @@ implements OnInit {
 
     this.employmentType = '';
   }
+
+  deleteJob(id: number) {
+
+  const confirmDelete =
+    confirm(
+      'Are you sure you want to delete this job?'
+    );
+
+  if (!confirmDelete)
+    return;
+
+  this.jobService
+    .deleteJob(id)
+    .subscribe({
+      next: () => {
+
+        alert(
+          'Job Deleted Successfully'
+        );
+
+        this.loadJobs();
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+        alert(
+          'Job Delete Failed'
+        );
+      }
+    });
+}
 }
