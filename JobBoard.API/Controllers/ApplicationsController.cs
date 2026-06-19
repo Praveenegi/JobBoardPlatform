@@ -1,4 +1,5 @@
-﻿using JobBoard.Core.DTOs;
+﻿using JobBoard.API.Services;
+using JobBoard.Core.DTOs;
 using JobBoard.Core.Entities;
 using JobBoard.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,14 @@ public class ApplicationsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public ApplicationsController(ApplicationDbContext context)
+    private readonly EmailService _emailService;
+
+    public ApplicationsController(
+        ApplicationDbContext context,
+        EmailService emailService)
     {
         _context = context;
+        _emailService = emailService;
     }
 
     [HttpPost]
@@ -56,14 +62,28 @@ public class ApplicationsController : ControllerBase
             .Select(a => new
             {
                 ApplicationId = a.Id,
+
                 CandidateId = a.CandidateId,
+
                 CandidateName =
-                    a.Candidate.FirstName + " " +
-                    a.Candidate.LastName,
-                CandidateEmail =
-                    a.Candidate.Email,
-                Status = a.Status,
-                AppliedAt = a.AppliedAt
+                a.Candidate.FirstName + " " +
+                a.Candidate.LastName,
+
+                        CandidateEmail =
+                a.Candidate.Email,
+
+                        ResumeUrl =
+                _context.CandidateProfiles
+                    .Where(cp =>
+                        cp.UserId ==
+                        a.CandidateId)
+                    .Select(cp =>
+                        cp.ResumeUrl)
+                    .FirstOrDefault(),
+
+                        Status = a.Status,
+
+                        AppliedAt = a.AppliedAt
             })
             .ToListAsync();
 
@@ -94,6 +114,17 @@ public class ApplicationsController : ControllerBase
         application.Status = dto.Status;
 
         await _context.SaveChangesAsync();
+        var candidate =
+        await _context.Users
+        .FindAsync(application.CandidateId);
+
+            if (candidate != null)
+            {
+                await _emailService.SendEmailAsync(
+                    candidate.Email,
+                    "Application Status Updated",
+                    $"Your application status is now: {application.Status}");
+            }
 
         return Ok(application);
     }

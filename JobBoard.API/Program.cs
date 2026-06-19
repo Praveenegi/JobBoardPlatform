@@ -1,10 +1,13 @@
+using JobBoard.API.Services;
 using JobBoard.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Text;
-using Microsoft.Extensions.FileProviders;
+using JobBoard.API.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +38,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     builder.Configuration["Jwt:Key"]!))
         };
     });
+
+//Email Service
+builder.Services.AddScoped<EmailService>();
 
 // Authorization
 builder.Services.AddAuthorization();

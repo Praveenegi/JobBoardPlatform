@@ -14,3 +14,9 @@ jobboard-ui/.angular/
 
 # Logs
 *.log
+
+#Email credentials
+**/appsettings.Development.json
+
+# Uploaded resumes
+**/Uploads/resumes/

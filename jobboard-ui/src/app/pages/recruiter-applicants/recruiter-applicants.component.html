@@ -53,6 +53,20 @@
 
       </button>
 
+      <div class="mt-2">
+
+      <a
+        *ngIf="app.resumeUrl"
+        [href]="'https://localhost:7229' + app.resumeUrl"
+        target="_blank"
+        class="btn btn-primary me-2">
+
+        View Resume
+
+      </a>
+
+</div>
+
     </div>
 
   </div>
