@@ -37,6 +37,30 @@ public class JobsController : ControllerBase
         return Ok(job);
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateJob(
+    int id,
+    JobDto dto)
+    {
+        var job =
+            await _context.Jobs
+            .FindAsync(id);
+
+        if (job == null)
+            return NotFound();
+
+        job.Title = dto.Title;
+        job.Description = dto.Description;
+        job.Location = dto.Location;
+        job.Salary = dto.Salary;
+        job.EmploymentType =
+            dto.EmploymentType;
+
+        await _context.SaveChangesAsync();
+
+        return Ok(job);
+    }
+
     //[Authorize(Roles = "Recruiter")]
     [HttpPost]
     public async Task<IActionResult> CreateJob(JobDto dto)
@@ -57,4 +81,5 @@ public class JobsController : ControllerBase
 
         return Ok(job);
     }
+
 }

@@ -5,86 +5,54 @@
   <div class="row mb-4">
 
     <div class="col-md-3">
-
       <div class="card text-center">
-
         <div class="card-body">
-
-          <h2>
-            {{ stats?.totalJobs }}
-          </h2>
-
+          <h2>{{ stats?.totalJobs }}</h2>
           <p>Total Jobs</p>
-
         </div>
-
       </div>
-
     </div>
 
     <div class="col-md-3">
-
       <div class="card text-center">
-
         <div class="card-body">
-
-          <h2>
-            {{ stats?.totalApplications }}
-          </h2>
-
+          <h2>{{ stats?.totalApplications }}</h2>
           <p>Applications</p>
-
         </div>
-
       </div>
-
     </div>
 
     <div class="col-md-3">
-
       <div class="card text-center">
-
         <div class="card-body">
-
-          <h2>
-            {{ stats?.interviews }}
-          </h2>
-
+          <h2>{{ stats?.interviews }}</h2>
           <p>Interviews</p>
-
         </div>
-
       </div>
-
     </div>
 
     <div class="col-md-3">
-
       <div class="card text-center">
-
         <div class="card-body">
-
-          <h2>
-            {{ stats?.selected }}
-          </h2>
-
+          <h2>{{ stats?.selected }}</h2>
           <p>Selected</p>
-
         </div>
-
       </div>
-
     </div>
 
   </div>
 
-  <!-- Create Job -->
+  <!-- Create / Edit Job -->
 
   <div class="card">
 
     <div class="card-header">
 
-      <h3>Create New Job</h3>
+      <h3>
+        {{ jobId > 0
+            ? 'Edit Job'
+            : 'Create New Job' }}
+      </h3>
 
     </div>
 
@@ -121,9 +89,77 @@
         class="btn btn-success"
         (click)="createJob()">
 
-        Create Job
+        {{ jobId > 0
+            ? 'Update Job'
+            : 'Create Job' }}
 
       </button>
+
+    </div>
+
+  </div>
+
+  <!-- Jobs List -->
+
+  <div class="card mt-4">
+
+    <div class="card-header">
+
+      <h3>Your Jobs</h3>
+
+    </div>
+
+    <div class="card-body">
+
+      <table class="table table-striped">
+
+        <thead>
+
+          <tr>
+
+            <th>Title</th>
+
+            <th>Location</th>
+
+            <th>Salary</th>
+
+            <th>Type</th>
+
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let job of jobs">
+
+            <td>{{ job.title }}</td>
+
+            <td>{{ job.location }}</td>
+
+            <td>₹{{ job.salary }}</td>
+
+            <td>{{ job.employmentType }}</td>
+
+            <td>
+
+              <button
+                class="btn btn-warning btn-sm"
+                (click)="editJob(job)">
+
+                Edit
+
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
 
     </div>
 

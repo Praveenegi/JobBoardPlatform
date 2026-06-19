@@ -7,7 +7,9 @@ import { environment } from '../../../environments/environment';
 })
 export class JobService {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getJobs() {
     return this.http.get(
@@ -15,11 +17,24 @@ export class JobService {
     );
   }
 
-  createJob(job: any) {
+  getJob(id: number) {
+  return this.http.get(
+    `${environment.apiUrl}/Jobs/${id}`
+  );
+}
 
-  return this.http.post(
-    `${environment.apiUrl}/Jobs`,
+  createJob(job: any) {
+    return this.http.post(
+      `${environment.apiUrl}/Jobs`,
+      job
+    );
+  }
+
+  updateJob(id: number, job: any) {
+  return this.http.put(
+    `${environment.apiUrl}/Jobs/${id}`,
     job
   );
 }
+  
 }
