@@ -45,10 +45,20 @@ export class LoginComponent {
             'userId',
              response.userId
           );
+          if (response.role === 'Recruiter') 
+          {
 
-          console.log(response);
+          this.router.navigate([
+            '/recruiter-dashboard'
+          ]);
 
-          this.router.navigate(['/jobs']);
+        } else{
+
+          this.router.navigate([
+            '/jobs'
+          ]);
+        }
+          
         },
         error: (error) => {
           console.error(error);

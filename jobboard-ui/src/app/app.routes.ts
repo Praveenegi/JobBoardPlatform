@@ -43,7 +43,7 @@ export const routes: Routes = [
   {
   path: 'recruiter-applicants',
   component: RecruiterApplicantsComponent,
-  canActivate: [authGuard]
+  canActivate: [authGuard, recruiterGuard]
 },
 {
   path: 'recruiter-dashboard',

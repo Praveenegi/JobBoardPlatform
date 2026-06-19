@@ -2,8 +2,8 @@
 
   <div class="container">
 
-    <a
-      class="navbar-brand fw-bold">
+    <a class="navbar-brand fw-bold"
+              routerLink="/jobs">
 
       <i class="bi bi-briefcase-fill me-2"></i>
 
@@ -27,7 +27,10 @@
 
       <div class="navbar-nav ms-auto">
 
+        <!-- Candidate Links -->
+
         <a
+          *ngIf="role === 'Candidate'"
           class="nav-link"
           routerLink="/jobs">
 
@@ -38,6 +41,7 @@
         </a>
 
         <a
+          *ngIf="role === 'Candidate'"
           class="nav-link"
           routerLink="/my-applications">
 
@@ -48,6 +52,7 @@
         </a>
 
         <a
+          *ngIf="role === 'Candidate'"
           class="nav-link"
           routerLink="/profile">
 
@@ -56,6 +61,43 @@
           Profile
 
         </a>
+
+        <!-- Recruiter Links -->
+
+        <a
+          *ngIf="role === 'Recruiter'"
+          class="nav-link"
+          routerLink="/recruiter-dashboard">
+
+          <i class="bi bi-speedometer2 me-1"></i>
+
+          Dashboard
+
+        </a>
+
+        <a
+          *ngIf="role === 'Recruiter'"
+          class="nav-link"
+          routerLink="/jobs">
+
+          <i class="bi bi-briefcase me-1"></i>
+
+          Jobs
+
+        </a>
+
+        <a
+          *ngIf="role === 'Recruiter'"
+          class="nav-link"
+          routerLink="/recruiter-applicants">
+
+          <i class="bi bi-people-fill me-1"></i>
+
+          Applicants
+
+        </a>
+
+        <!-- Logout -->
 
         <a
           class="nav-link text-danger"
