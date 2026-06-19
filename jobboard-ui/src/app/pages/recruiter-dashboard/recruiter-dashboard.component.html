@@ -1,44 +1,99 @@
-<div class="container mt-4">
+<div class="container row mt-4">
 
+  <div class="mb-4">
+  <h2 class = "fw-bold">Recruiter Dashboard</h2>
+  <p class="text-muted">
+    Manage jobs, applicants and hiring activities
+  </p>
+  </div>
   <!-- Dashboard Stats -->
 
-  <div class="row mb-4">
+  <div class="row row-cols-1 row-cols-md-5 g-3 mb-4">
 
-    <div class="col-md-3">
-      <div class="card text-center">
-        <div class="card-body">
-          <h2>{{ stats?.totalJobs }}</h2>
-          <p>Total Jobs</p>
-        </div>
-      </div>
+    <div class="col">
+
+  <div class="card bg-primary text-white shadow border-0 h-100">
+
+    <div class="card-body text-center">
+      <i class="bi bi-briefcase-fill fs-1"></i>
+
+      <h2>{{ stats?.totalJobs }}</h2>
+
+      <p class="mb-0">Total Jobs</p>
+
     </div>
 
-    <div class="col-md-3">
-      <div class="card text-center">
-        <div class="card-body">
-          <h2>{{ stats?.totalApplications }}</h2>
-          <p>Applications</p>
-        </div>
-      </div>
+  </div>
+
+</div>
+
+    <div class="col">
+
+  <div class="card bg-dark text-white shadow border-0 h-100">
+
+    <div class="card-body text-center">
+      <i class="bi bi-file-earmark-text-fill fs-1"></i>
+
+      <h2>{{ stats?.totalApplications }}</h2>
+
+      <p class="mb-0">Applications</p>
+
     </div>
 
-    <div class="col-md-3">
-      <div class="card text-center">
-        <div class="card-body">
-          <h2>{{ stats?.interviews }}</h2>
-          <p>Interviews</p>
-        </div>
-      </div>
+  </div>
+
+</div>
+
+    <div class="col">
+
+  <div class="card bg-info text-white shadow border-0 h-100">
+
+    <div class="card-body text-center">
+      <i class="bi bi-calendar-check-fill fs-1"></i>
+
+      <h2>{{ stats?.interviews }}</h2>
+
+      <p class="mb-0">Interviews</p>
+
     </div>
 
-    <div class="col-md-3">
-      <div class="card text-center">
-        <div class="card-body">
-          <h2>{{ stats?.selected }}</h2>
-          <p>Selected</p>
-        </div>
-      </div>
+  </div>
+
+</div>
+
+    <div class="col">
+
+  <div class="card bg-success text-white shadow border-0 h-100">
+
+    <div class="card-body text-center">
+
+      <i class="bi bi-check-circle-fill fs-1"></i>
+      <h2>{{ stats?.selected }}</h2>
+      
+      <p class="mb-0">Selected</p>
+
     </div>
+
+  </div>
+
+</div>
+
+    <div class="col">
+
+  <div class="card bg-danger text-white shadow border-0 h-100">
+
+    <div class="card-body text-center">
+      <i class="bi bi-x-circle-fill fs-1"></i>
+
+      <h2>{{ stats?.rejected }}</h2>
+
+      <p class="mb-0">Rejected</p>
+
+    </div>
+
+  </div>
+
+</div>
 
   </div>
 

@@ -9,4 +9,6 @@ public class DashboardStatsDto
     public int Interviews { get; set; }
 
     public int Selected { get; set; }
+
+    public int Rejected { get; set; }
 }

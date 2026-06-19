@@ -37,6 +37,27 @@ public class JobsController : ControllerBase
         return Ok(job);
     }
 
+    //[Authorize(Roles = "Recruiter")]
+    [HttpPost]
+    public async Task<IActionResult> CreateJob(JobDto dto)
+    {
+        var job = new Job
+        {
+            Title = dto.Title,
+            Description = dto.Description,
+            Location = dto.Location,
+            Salary = dto.Salary,
+            EmploymentType = dto.EmploymentType,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _context.Jobs.Add(job);
+
+        await _context.SaveChangesAsync();
+
+        return Ok(job);
+    }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateJob(
     int id,
@@ -61,27 +82,6 @@ public class JobsController : ControllerBase
         return Ok(job);
     }
 
-    //[Authorize(Roles = "Recruiter")]
-    [HttpPost]
-    public async Task<IActionResult> CreateJob(JobDto dto)
-    {
-        var job = new Job
-        {
-            Title = dto.Title,
-            Description = dto.Description,
-            Location = dto.Location,
-            Salary = dto.Salary,
-            EmploymentType = dto.EmploymentType,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        _context.Jobs.Add(job);
-
-        await _context.SaveChangesAsync();
-
-        return Ok(job);
-    }
-
     //Delete job
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteJob(int id)
@@ -91,6 +91,17 @@ public class JobsController : ControllerBase
 
         if (job == null)
             return NotFound();
+
+        var hasApplications =
+            await _context.Applications
+            .AnyAsync(a => a.JobId == id);
+
+        if (hasApplications)
+        {
+            return BadRequest(
+                "Cannot delete job because applications exist."
+            );
+        }
 
         _context.Jobs.Remove(job);
 

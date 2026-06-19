@@ -37,7 +37,12 @@ public class DashboardController : ControllerBase
             Selected =
                 await _context.Applications
                     .CountAsync(x =>
-                        x.Status == "Selected")
+                        x.Status == "Selected"),
+
+            Rejected =
+                await _context.Applications
+                    .CountAsync(x =>
+                        x.Status == "Rejected")
         };
 
         return Ok(stats);
