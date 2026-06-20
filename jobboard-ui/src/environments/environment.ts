@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'https://localhost:7229/api'
+  production: true,
+  apiUrl: 'https://jobboard-api-praveen-f0csekc9adg5gmbb.centralindia-01.azurewebsites.net/api'
 };

@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
 
   get resumeLink(): string {
 
-    return `https://localhost:7229${this.resumeUrl}`;
+    return `https://jobboard-api-praveen-f0csekc9adg5gmbb.centralindia-01.azurewebsites.net${this.resumeUrl}`;
   }
 
   onFileSelected(event: any) {
