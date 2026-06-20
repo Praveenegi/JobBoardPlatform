@@ -4,118 +4,156 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
 using System.Text;
-using JobBoard.API.Services;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add Controllers
-builder.Services.AddControllers();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
-// Database
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+try
+{
+    Console.WriteLine("=== APPLICATION STARTING ===");
 
-// JWT Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
+    builder.Services.AddControllers();
+
+    var connectionString =
+        builder.Configuration.GetConnectionString("DefaultConnection");
+
+    Console.WriteLine(
+        $"Connection String Found: {!string.IsNullOrWhiteSpace(connectionString)}");
+
+    var jwtKey = builder.Configuration["Jwt:Key"];
+    var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+    var jwtAudience = builder.Configuration["Jwt:Audience"];
+
+    Console.WriteLine(
+        $"JWT Key Found: {!string.IsNullOrWhiteSpace(jwtKey)}");
+
+    Console.WriteLine(
+        $"JWT Issuer Found: {!string.IsNullOrWhiteSpace(jwtIssuer)}");
+
+    Console.WriteLine(
+        $"JWT Audience Found: {!string.IsNullOrWhiteSpace(jwtAudience)}");
+
+    if (string.IsNullOrWhiteSpace(connectionString))
+        throw new Exception("DefaultConnection missing");
+
+    if (string.IsNullOrWhiteSpace(jwtKey))
+        throw new Exception("JWT Key missing");
+
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+
+    builder.Services
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+            options.TokenValidationParameters =
+                new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
 
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
+                    ValidIssuer = jwtIssuer,
+                    ValidAudience = jwtAudience,
 
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(
-                    builder.Configuration["Jwt:Key"]!))
-        };
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwtKey))
+                };
+        });
+
+    builder.Services.AddAuthorization();
+
+    builder.Services.AddScoped<EmailService>();
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(
+            "AllowAngular",
+            policy =>
+            {
+                policy.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            });
     });
 
-//Email Service
-builder.Services.AddScoped<EmailService>();
+    var app = builder.Build();
 
-// Authorization
-builder.Services.AddAuthorization();
+    Console.WriteLine("=== APP BUILT ===");
 
-// Swagger
-builder.Services.AddEndpointsApiExplorer();
+    try
+    {
+        using var scope = app.Services.CreateScope();
 
-builder.Services.AddSwaggerGen();
+        var db = scope.ServiceProvider
+            .GetRequiredService<ApplicationDbContext>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngular",
-        policy =>
-        {
-            policy.AllowAnyOrigin()
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
-});
+        Console.WriteLine("=== TESTING DATABASE ===");
 
-var app = builder.Build();
+        bool canConnect = db.Database.CanConnect();
 
-// Swagger
-if (app.Environment.IsDevelopment())
-{
+        Console.WriteLine($"DATABASE CONNECTED: {canConnect}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("=== DATABASE ERROR ===");
+        Console.WriteLine(ex.ToString());
+        throw;
+    }
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+    app.UseHttpsRedirection();
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(
+    app.UseStaticFiles();
+
+    var uploadsPath =
         Path.Combine(
             Directory.GetCurrentDirectory(),
-            "Uploads")),
-    RequestPath = "/Uploads"
-});
-app.UseCors("AllowAngular");
+            "Uploads");
 
-// Authentication & Authorization
-app.UseAuthentication();
-app.UseAuthorization();
+    if (!Directory.Exists(uploadsPath))
+    {
+        Directory.CreateDirectory(uploadsPath);
+    }
 
-// Controllers
-app.MapControllers();
+    app.UseStaticFiles(
+        new StaticFileOptions
+        {
+            FileProvider =
+                new PhysicalFileProvider(
+                    uploadsPath),
+            RequestPath = "/Uploads"
+        });
 
-// Temporary Weather Endpoint
-var summaries = new[]
+    app.UseCors("AllowAngular");
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.MapGet("/", () =>
+        "JobBoard API Running");
+
+    Console.WriteLine(
+        "=== APPLICATION STARTED SUCCESSFULLY ===");
+
+    app.Run();
+}
+catch (Exception ex)
 {
-    "Freezing", "Bracing", "Chilly", "Cool",
-    "Mild", "Warm", "Balmy", "Hot",
-    "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    return Enumerable.Range(1, 5)
-        .Select(index => new WeatherForecast(
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-})
-.WithName("GetWeatherForecast");
-
-app.Run();
-
-record WeatherForecast(
-    DateOnly Date,
-    int TemperatureC,
-    string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    Console.WriteLine("=== STARTUP ERROR ===");
+    Console.WriteLine(ex.ToString());
+    throw;
 }
