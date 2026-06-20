@@ -3,7 +3,7 @@ jobboard-ui/node_modules/
 jobboard-ui/dist/
 jobboard-ui/.angular/
 
-# .NET
+# .NET Build Output
 **/bin/
 **/obj/
 
@@ -15,8 +15,15 @@ jobboard-ui/.angular/
 # Logs
 *.log
 
-#Email credentials
+# Local Development Secrets
 **/appsettings.Development.json
 
-# Uploaded resumes
-**/Uploads/resumes/
+# Publish Profiles (IMPORTANT)
+**/Properties/PublishProfiles/
+
+# Uploaded Files
+**/Uploads/
+!**/Uploads/.gitkeep
+
+# Local Tools
+**/dotnet-tools.
